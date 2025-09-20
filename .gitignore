@@ -6,6 +6,14 @@
 # Cargo
 Cargo.lock
 
+# Build and cache directories (from container environment setup)
+/.cargo/
+/.rustup/
+/target/
+/.cache/
+/.config/
+/.local/
+
 # IDE
 .vscode/
 .idea/
