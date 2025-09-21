@@ -8,7 +8,6 @@ Cargo.lock
 /pico-blink/
 
 !/pico-blink/src
-
 !/pico-blink/Cargo.toml
 !/pico-blink/memory.x
 !/pico-blink/.cargo/
@@ -45,11 +44,13 @@ Thumbs.db
 
 # Embedded / Hardware
 *.hex
-*.bin
 *.elf
 *.map
 *.lst
 *.dmp
+# Exclude .bin files but allow firmware
+*.bin
+!/pico-blink/cyw43-firmware/*.bin
 
 # Build artifacts
 *.o
