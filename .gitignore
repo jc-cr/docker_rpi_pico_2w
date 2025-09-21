@@ -13,9 +13,6 @@ Cargo.lock
 !/pico-blink/memory.x
 !/pico-blink/.cargo/
 
-!
-!
-
 # Build and cache directories (from container environment setup)
 /.cargo/
 /.rustup/
