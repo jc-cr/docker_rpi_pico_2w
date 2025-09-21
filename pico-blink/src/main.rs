@@ -1,7 +1,3 @@
-//! This example tests the RP Pico 2 W onboard LED.
-//!
-//! It does not work with the RP Pico 2 board. See `blinky.rs`.
-
 #![no_std]
 #![no_main]
 
@@ -16,20 +12,6 @@ use embassy_time::{Duration, Timer};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
 
-// Program metadata for `picotool info`.
-// This isn't needed, but it's recommended to have these minimal entries.
-#[unsafe(link_section = ".bi_entries")]
-#[used]
-pub static PICOTOOL_ENTRIES: [embassy_rp::binary_info::EntryAddr; 4] = [
-    embassy_rp::binary_info::rp_program_name!(c"Blinky Example"),
-    embassy_rp::binary_info::rp_program_description!(
-        c"This example tests the RP Pico 2 W's onboard LED, connected to GPIO 0 of the cyw43 \
-        (WiFi chip) via PIO 0 over the SPI bus."
-    ),
-    embassy_rp::binary_info::rp_cargo_version!(),
-    embassy_rp::binary_info::rp_program_build_attribute!(),
-];
-
 bind_interrupts!(struct Irqs {
     PIO0_IRQ_0 => InterruptHandler<PIO0>;
 });
@@ -41,9 +23,13 @@ async fn cyw43_task(runner: cyw43::Runner<'static, Output<'static>, PioSpi<'stat
 
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
+    info!("Hello World!");
+
     let p = embassy_rp::init(Default::default());
-    let fw = include_bytes!("../../../../cyw43-firmware/43439A0.bin");
-    let clm = include_bytes!("../../../../cyw43-firmware/43439A0_clm.bin");
+
+    // Include the WiFi firmware and CLM.
+    let fw = include_bytes!("../cyw43-firmware/43439A0.bin");
+    let clm = include_bytes!("../cyw43-firmware/43439A0_clm.bin");
 
     // To make flashing faster for development, you may want to flash the firmwares independently
     // at hardcoded addresses, instead of baking them into the program with `include_bytes!`:
@@ -58,8 +44,6 @@ async fn main(spawner: Spawner) {
     let spi = PioSpi::new(
         &mut pio.common,
         pio.sm0,
-        // SPI communication won't work if the speed is too high, so we use a divider larger than `DEFAULT_CLOCK_DIVIDER`.
-        // See: https://github.com/embassy-rs/embassy/issues/3960.
         RM2_CLOCK_DIVIDER,
         pio.irq0,
         cs,
@@ -71,21 +55,19 @@ async fn main(spawner: Spawner) {
     static STATE: StaticCell<cyw43::State> = StaticCell::new();
     let state = STATE.init(cyw43::State::new());
     let (_net_device, mut control, runner) = cyw43::new(state, pwr, spi, fw).await;
-    spawner.spawn(unwrap!(cyw43_task(runner)));
+    unwrap!(spawner.spawn(cyw43_task(runner)));
 
     control.init(clm).await;
-    control
-        .set_power_management(cyw43::PowerManagementMode::PowerSave)
-        .await;
+    control.gpio_set(0, false).await;
+    info!("Wifi initialized!");
 
-    let delay = Duration::from_millis(250);
     loop {
-        info!("led on!");
+        info!("LED on!");
         control.gpio_set(0, true).await;
-        Timer::after(delay).await;
+        Timer::after(Duration::from_millis(500)).await;
 
-        info!("led off!");
+        info!("LED off!");
         control.gpio_set(0, false).await;
-        Timer::after(delay).await;
+        Timer::after(Duration::from_millis(500)).await;
     }
 }
