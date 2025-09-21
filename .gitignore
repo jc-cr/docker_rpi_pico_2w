@@ -12,6 +12,8 @@ Cargo.lock
 !/pico-blink/Cargo.toml
 !/pico-blink/memory.x
 !/pico-blink/.cargo/
+!/pico-blink/cyw43-firmware/
+!/pico-blink/build.rs
 
 # Build and cache directories (from container environment setup)
 /.cargo/
