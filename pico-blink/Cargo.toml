@@ -4,39 +4,16 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cortex-m = "0.7"
 cortex-m-rt = "0.7"
-embedded-hal = { version = "0.2.5", features = ["unproven"] }
-panic-halt = "0.2"
-
-# Pico 2W support (rp2350 chip)
-rp-pico = "0.9"
-
-# Optional: for debugging
-cortex-m-semihosting = "0.5"
+embedded-hal = "1.0.0"
+panic-halt = "0.2.0"
+rp235x-hal = { version = "0.3.0", features = ["rt", "critical-section-impl"] }
 
 [profile.dev]
-debug = 2
-debug-assertions = true
-incremental = false
-opt-level = 'z'
-overflow-checks = true
+panic = "abort"
 
 [profile.release]
-codegen-units = 1
-debug = 2
-debug-assertions = false
-incremental = false
-lto = true
+panic = "abort"
 opt-level = 'z'
-overflow-checks = false
-
-# cargo build/run
-[target.thumbv8m.main-none-eabihf]
-rustflags = [
-  "-C", "linker=flip-link",
-]
-
-# cargo flash
-[target.'cfg(all(target_arch = "arm", target_os = "none"))']
-runner = "probe-rs run --chip RP2350"
+lto = true
+codegen-units = 1

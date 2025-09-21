@@ -26,17 +26,8 @@ services:
     tty: true
     command: /bin/bash
 
-  setup_dev:
-    extends: pico-dev
-    command: rustup default stable
-
-
-  build:
-    working_dir: /app/pico-blink
-    extends: pico-dev
-    command: cargo build --release
-
+  # Plug in board in boot mode
   flash:
-    working_dir: /app/pico-blink
-    extends: pico-dev
-    command: probe-rs run --chip RP2350 target/release/pico-blink
+     working_dir: /app/pico-blink
+     extends: pico-dev
+     command: cargo run --release --target-dir . --target thumbv8m.main-none-eabihf
