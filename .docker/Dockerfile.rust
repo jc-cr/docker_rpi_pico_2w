@@ -1,14 +1,25 @@
 FROM rust:1.90-slim-bullseye
 
+# Install required packages
 RUN apt-get update && apt-get install -y \
-    build-essential \
+    gcc-arm-none-eabi \
+    libnewlib-arm-none-eabi \
+    libusb-1.0-0-dev \
     pkg-config \
     libudev-dev \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Install tools for Pico 2W
-RUN rustup target add thumbv8m.main-none-eabihf && \
-    cargo install elf2uf2-rs --locked
+# Install Rust targets and tools
+RUN rustup target add thumbv8m.main-none-eabihf
+RUN rustup component add llvm-tools-preview
 
-WORKDIR /workspace
-CMD ["tail", "-f", "/dev/null"]
+# Install cargo tools
+RUN cargo install flip-link
+
+# Install probe-rs CLI tools (newer method)
+RUN cargo install probe-rs-tools --locked
+
+
+# Set working directory
+WORKDIR /app

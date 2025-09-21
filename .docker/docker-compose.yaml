@@ -1,23 +1,42 @@
 services:
-  rust-dev:
-    user: "${UID:-1000}:${GID:-1000}"
+  pico-dev:
     build:
-      context: ..
-      dockerfile: .docker/Dockerfile.rust
-    container_name: rpi_pico_dev
+      context: .
+      dockerfile: Dockerfile.rust
     volumes:
-      - ../:/workspace
-      - cargo-cache:/usr/local/cargo/registry
-      - target-cache:/workspace/target
-    devices:
-      - /dev/bus/usb:/dev/bus/usb
-    privileged: true
-    working_dir: /workspace
+      - ..:/app
+      - /dev/bus/usb:/dev/bus/usb  # For USB device access
+    user: "${UID:-1000}:${GID:-1000}"
+    privileged: true  # Required for USB device access
+    working_dir: /app
     environment:
-      - CARGO_TARGET_DIR=/workspace/target
+      # Rust-specific configuration
+      - CARGO_HOME=/app/.cargo
+      - RUSTUP_HOME=/app/.rustup
+      - CARGO_TARGET_DIR=/app/target
+      # XDG Base Directory Specification for tools
+      - XDG_CACHE_HOME=/app/.cache
+      - XDG_CONFIG_HOME=/app/.config
+      - XDG_DATA_HOME=/app/.local/share
+      - XDG_STATE_HOME=/app/.local/state
+
+  bash:
+    extends: pico-dev
     stdin_open: true
     tty: true
+    command: /bin/bash
 
-volumes:
-  cargo-cache:
-  target-cache:
+  setup_dev:
+    extends: pico-dev
+    command: rustup default stable
+
+
+  build:
+    working_dir: /app/pico-blink
+    extends: pico-dev
+    command: cargo build --release
+
+  flash:
+    working_dir: /app/pico-blink
+    extends: pico-dev
+    command: probe-rs run --chip RP2350 target/release/pico-blink
