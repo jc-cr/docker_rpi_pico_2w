@@ -12,6 +12,20 @@ use embassy_time::{Duration, Timer};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
 
+// Program metadata for `picotool info`.
+// This isn't needed, but it's recommended to have these minimal entries.
+#[unsafe(link_section = ".bi_entries")]
+#[used]
+pub static PICOTOOL_ENTRIES: [embassy_rp::binary_info::EntryAddr; 4] = [
+    embassy_rp::binary_info::rp_program_name!(c"Pico 2W Blink Example"),
+    embassy_rp::binary_info::rp_program_description!(
+        c"This example tests the RP Pico 2 W's onboard LED, connected to GPIO 0 of the cyw43 \
+        (WiFi chip) via PIO 0 over the SPI bus."
+    ),
+    embassy_rp::binary_info::rp_cargo_version!(),
+    embassy_rp::binary_info::rp_program_build_attribute!(),
+];
+
 bind_interrupts!(struct Irqs {
     PIO0_IRQ_0 => InterruptHandler<PIO0>;
 });
@@ -21,22 +35,10 @@ async fn cyw43_task(runner: cyw43::Runner<'static, Output<'static>, PioSpi<'stat
     runner.run().await
 }
 
-#[embassy_executor::main]
-async fn main(spawner: Spawner) {
-    info!("Hello World!");
-
-    let p = embassy_rp::init(Default::default());
-
+async fn setup_wifi(p: embassy_rp::Peripherals, spawner: &Spawner) -> cyw43::Control<'static> {
     // Include the WiFi firmware and CLM.
     let fw = include_bytes!("../cyw43-firmware/43439A0.bin");
     let clm = include_bytes!("../cyw43-firmware/43439A0_clm.bin");
-
-    // To make flashing faster for development, you may want to flash the firmwares independently
-    // at hardcoded addresses, instead of baking them into the program with `include_bytes!`:
-    //     probe-rs download ../../cyw43-firmware/43439A0.bin --binary-format bin --chip RP235x --base-address 0x10100000
-    //     probe-rs download ../../cyw43-firmware/43439A0_clm.bin --binary-format bin --chip RP235x --base-address 0x10140000
-    //let fw = unsafe { core::slice::from_raw_parts(0x10100000 as *const u8, 230321) };
-    //let clm = unsafe { core::slice::from_raw_parts(0x10140000 as *const u8, 4752) };
 
     let pwr = Output::new(p.PIN_23, Level::Low);
     let cs = Output::new(p.PIN_25, Level::High);
@@ -59,7 +61,17 @@ async fn main(spawner: Spawner) {
 
     control.init(clm).await;
     control.gpio_set(0, false).await;
-    info!("Wifi initialized!");
+    info!("WiFi initialized!");
+    
+    control
+}
+
+#[embassy_executor::main]
+async fn main(spawner: Spawner) {
+    info!("Hello World!");
+    let p = embassy_rp::init(Default::default());
+    
+    let mut control = setup_wifi(p, &spawner).await;
 
     loop {
         info!("LED on!");

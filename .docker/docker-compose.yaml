@@ -28,6 +28,6 @@ services:
 
   # Plug in board in boot mode
   flash:
-     working_dir: /app/pico-blink
+     working_dir: /app/ext-led-test
      extends: pico-dev
      command: cargo run --release --target-dir . --target thumbv8m.main-none-eabihf
