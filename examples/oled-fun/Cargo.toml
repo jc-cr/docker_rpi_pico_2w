@@ -1,8 +1,7 @@
 [package]
-name = "oled-i2c"
+name = "oled-fun"
 version = "0.1.0"
 edition = "2024"
-
 
 [dependencies]
 # Embassy core dependencies - use crates.io versions
@@ -30,8 +29,10 @@ embedded-hal-async = "1.0"
 static_cell = "2.1"
 portable-atomic = { version = "1.5", features = ["critical-section"] }
 
+# OLED and graphics dependencies
 ssd1306 = "0.8.4"
 embedded-graphics = "0.8.1"
+tinybmp = "0.5"
 heapless = "0.8"
 
 [profile.dev]
