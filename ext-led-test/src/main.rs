@@ -1,10 +1,13 @@
+// file: main.rs
+// desc: toggle LED with button
+
 #![no_std]
 #![no_main]
 use cyw43_pio::{PioSpi, RM2_CLOCK_DIVIDER};
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_rp::bind_interrupts;
-use embassy_rp::gpio::{Level, Output};
+use embassy_rp::gpio::{Input, Level, Output, Pull};
 use embassy_rp::peripherals::{DMA_CH0, PIO0, PIN_23, PIN_24, PIN_25, PIN_29};
 use embassy_rp::pio::{InterruptHandler, Pio};
 use embassy_rp::{Peri}; // Add this import
@@ -76,6 +79,10 @@ async fn main(spawner: Spawner) {
     
     // Extract the GPIO pin we need for main
     let mut gpio_led = Output::new(p.PIN_15, Level::Low);
+    let mut led_on:bool = false;
+
+    // Button
+    let mut button = Input::new(p.PIN_14, Pull::None);
     
     // Pass the peripherals (which are Peri<'_, T> types)
     let mut wifi_controller = setup_wifi(
@@ -88,15 +95,22 @@ async fn main(spawner: Spawner) {
         &spawner
     ).await;
     
+    wifi_controller.gpio_set(0, true).await;
+    gpio_led.set_low();
+
     loop {
-        info!("LEDs on!");
-        wifi_controller.gpio_set(0, true).await;
-        gpio_led.set_high();
-        Timer::after(Duration::from_millis(500)).await;
+        button.wait_for_high().await;  // Wait for button press
         
-        info!("LEDs off!");
-        wifi_controller.gpio_set(0, false).await;
-        gpio_led.set_low();
-        Timer::after(Duration::from_millis(500)).await;
+        // Toggle the LED
+        if !led_on {
+            led_on = true; 
+            gpio_led.set_high(); 
+        } else {
+            led_on = false;
+            gpio_led.set_low();
+        }
+        
+        button.wait_for_low().await;   // Wait for button release
+        Timer::after(Duration::from_millis(50)).await;  // Debounce delay
     }
 }
