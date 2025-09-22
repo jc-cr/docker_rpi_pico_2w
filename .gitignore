@@ -5,8 +5,8 @@
 
 # Cargo
 Cargo.lock
-*/release
-*/thumbv8m.main-none-eabihf
+*/examples/release
+*/examples/thumbv8m.main-none-eabihf
 
 # Build and cache directories (from container environment setup)
 /.cargo/
