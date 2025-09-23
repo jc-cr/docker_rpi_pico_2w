@@ -4,9 +4,19 @@ use cyw43_pio::{PioSpi, RM2_CLOCK_DIVIDER};
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_rp::bind_interrupts;
-use embassy_rp::gpio::{Level, Output};
+use embassy_rp::gpio::{Level, Output, Input, Pull};
 use embassy_rp::i2c::{self, Config};
-use embassy_rp::peripherals::{DMA_CH0, PIO0, PIN_23, PIN_24, PIN_25, PIN_29, I2C0};
+use embassy_rp::peripherals::{DMA_CH0, 
+    PIO0, 
+    PIN_6,
+    PIN_7,
+    PIN_8,
+    PIN_9,
+    PIN_23, 
+    PIN_24, 
+    PIN_25, 
+    PIN_29, 
+    I2C0};
 use embassy_rp::pio::{InterruptHandler, Pio};
 use embassy_rp::{Peri};
 use embassy_time::Timer;

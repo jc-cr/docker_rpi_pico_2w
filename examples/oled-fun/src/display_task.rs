@@ -14,15 +14,18 @@ use embedded_graphics::{
 };
 use tinybmp::Bmp;
 
+
 // Import from crate root
 use crate::setup_devices::Display;
 use crate::nooo::{FRAMES, frame_count};
+use embassy_time::Timer;
 
 
-pub async fn display_task(
+// Helper function to display a specific frame of an animation
+async fn display_frame(
     display: &mut Display, 
-    frame_index: usize
-) {
+    frame_index: usize) {
+    
     // Create text style
     let text_style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
     
@@ -56,5 +59,28 @@ pub async fn display_task(
     match display.flush() {
         Ok(_) => info!("Displayed frame {}/{}", frame_index + 1, frame_count()),
         Err(_) => error!("Display flush failed"),
+    }
+}
+
+
+#[embassy_executor::task]
+pub async fn display_task(
+    mut display: Display
+) {
+
+
+    info!("Starting animation with {} frames", frame_count());
+    let mut frame_index = 0usize;
+
+    loop {
+        // Check for animation changes (non-blocking)
+        
+        // Display current frame
+        display_frame(&mut display, frame_index).await;
+        
+        // Advance to next frame
+        frame_index = (frame_index + 1) % frame_count();
+        
+        Timer::after_millis(200).await; // Animation speed
     }
 }

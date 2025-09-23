@@ -11,14 +11,11 @@ use {defmt_rtt as _, panic_probe as _};
 // Import setup mod
 mod setup_devices;
 use setup_devices::{setup_display, setup_wifi};
-
 // Import task mods
+mod nooo;
 mod display_task;
 use display_task::{display_task};
 
-// Import frames modules
-mod nooo; 
-use nooo::{frame_count};
 
 // Program metadata for `picotool info`.
 const PROGRAM_NAME: &core::ffi::CStr = c"Pico 2W: Animated BMP";
@@ -36,7 +33,7 @@ async fn main(spawner: Spawner) {
     let p = embassy_rp::init(Default::default());
     
     // Setup individual components
-    let mut display = setup_display(p.I2C0, p.PIN_0, p.PIN_1).await;
+    let display = setup_display(p.I2C0, p.PIN_0, p.PIN_1).await;
     
     let mut wifi_controller = setup_wifi(
         p.PIO0,
@@ -53,22 +50,11 @@ async fn main(spawner: Spawner) {
     info!("WiFi LED enabled");
     info!("System initialization complete!");
 
-    //let mut current_animation_index =  0;
-    //let current_animation = 
-
-    info!("Starting animation with {} frames", frame_count());
-    let mut frame_index = 0usize;
+    spawner.spawn(display_task(display)).unwrap();
     
     // Main animation loop
     loop {
-
-
-        display_task(&mut display, frame_index).await;
-        
-        // Move to next frame - automatically cycles based on array length
-        frame_index = (frame_index + 1) % frame_count();
-        
         // Animation speed - adjust as needed
-        Timer::after_millis(200).await; // 5 FPS
+        Timer::after_secs(1).await;
     }
 }
