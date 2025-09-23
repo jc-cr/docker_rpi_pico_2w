@@ -12,9 +12,11 @@ docker compose build
 ```
 
 ### Rust project structure
-- `pico-blink/` - Embassy-based blink example for Pico 2W
-- `pico-blink/cyw43-firmware/` - CYW43 WiFi chip firmware files
-- Uses embassy-rp with RP2350 support and cyw43 for onboard LED
+
+- `examples/` - Embassy-based examples
+- `./.cargo/` - Dir for configuration file
+- `./build.rs` - Build code
+- `./memory.x` - Memory layout file
 
 ## Flash to board
 - Plug in board in boot mode (hold BOOTSEL)
