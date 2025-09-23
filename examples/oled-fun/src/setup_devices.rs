@@ -1,3 +1,5 @@
+// file: setup_devices.rs
+// desc: setup code for project devices
 use cyw43_pio::{PioSpi, RM2_CLOCK_DIVIDER};
 use defmt::*;
 use embassy_executor::Spawner;

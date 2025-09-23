@@ -29,7 +29,7 @@ services:
   build:
      working_dir: /app/examples/oled-fun
      extends: pico-dev
-     command: cargo build --release --target-dir . --target thumbv8m.main-none-eabihf
+     command: cargo build --target-dir . --target thumbv8m.main-none-eabihf
   # Plug in board in boot mode
   flash:
      working_dir: /app/examples/oled-fun
