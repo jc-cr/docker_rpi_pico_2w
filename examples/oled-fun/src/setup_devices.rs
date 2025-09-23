@@ -32,13 +32,7 @@ bind_interrupts!(struct Irqs {
     I2C0_IRQ => i2c::InterruptHandler<I2C0>;
 });
 
-// Type aliases for cleaner code
-pub type Display = Ssd1306<
-    I2CInterface<i2c::I2c<'static, I2C0, i2c::Async>>,
-    DisplaySize128x64,
-    ssd1306::mode::BufferedGraphicsMode<DisplaySize128x64>
->;
-
+// WiFi Chip stuff
 #[embassy_executor::task]
 async fn cyw43_task(runner: cyw43::Runner<'static, Output<'static>, PioSpi<'static, PIO0, 0, DMA_CH0>>) -> ! {
     runner.run().await
@@ -81,6 +75,14 @@ pub async fn setup_wifi(
     wifi_controller
 }
 
+// Display stuff
+
+pub type Display = Ssd1306<
+    I2CInterface<i2c::I2c<'static, I2C0, i2c::Async>>,
+    DisplaySize128x64,
+    ssd1306::mode::BufferedGraphicsMode<DisplaySize128x64>
+>;
+
 pub async fn setup_display(
     i2c0: Peri<'static, I2C0>,
     sda_pin: Peri<'static, embassy_rp::peripherals::PIN_0>,
@@ -108,4 +110,28 @@ pub async fn setup_display(
     }
     
     display
+}
+
+// Button stuff
+
+pub struct Buttons{
+    button_1: Input<'static>,
+    button_2: Input<'static>,
+    button_3: Input<'static>,
+    button_4: Input<'static>,
+}
+
+pub async fn setup_buttons(
+    pin_6: Peri<'static, PIN_6>,
+    pin_7: Peri<'static, PIN_7>,
+    pin_8: Peri<'static, PIN_8>,
+    pin_9: Peri<'static, PIN_9>,
+) -> Buttons {
+
+    Buttons {
+        button_1: Input::new(pin_6, Pull::None),
+        button_2: Input::new(pin_7, Pull::None),   
+        button_3: Input::new(pin_8, Pull::None),   
+        button_4: Input::new(pin_9, Pull::None),   
+    }
 }

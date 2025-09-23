@@ -15,6 +15,9 @@ use embedded_graphics::{
 use tinybmp::Bmp;
 
 
+use embassy_sync::pipe::{Reader};
+use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
+
 // Import from crate root
 use crate::setup_devices::Display;
 use crate::nooo::{FRAMES, frame_count};
@@ -65,7 +68,8 @@ async fn display_frame(
 
 #[embassy_executor::task]
 pub async fn display_task(
-    mut display: Display
+    mut display: Display,
+    mut pipe_reader: Reader<'static, CriticalSectionRawMutex, 1>,
 ) {
 
 

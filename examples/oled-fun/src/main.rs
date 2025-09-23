@@ -6,15 +6,23 @@
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_time::Timer;
+use embassy_sync::pipe::{Pipe, Reader, Writer};
+use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
+use static_cell::StaticCell;
+
+
 use {defmt_rtt as _, panic_probe as _};
 
 // Import setup mod
 mod setup_devices;
-use setup_devices::{setup_display, setup_wifi};
+use setup_devices::{setup_display, setup_wifi, setup_buttons};
+
 // Import task mods
 mod nooo;
 mod display_task;
 use display_task::{display_task};
+mod button_task;
+use button_task::{button_task};
 
 
 // Program metadata for `picotool info`.
@@ -27,13 +35,22 @@ pub static PICOTOOL_ENTRIES: [embassy_rp::binary_info::EntryAddr; 3] = [
     embassy_rp::binary_info::rp_program_build_attribute!(),
 ];
 
+static ANIMATION_STATE_PIPE: StaticCell<Pipe<CriticalSectionRawMutex, 1>> = StaticCell::new();
+
+
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
     // Initialize peripherals
     let p = embassy_rp::init(Default::default());
+
+    // Initialize the pipe and split it
+    let animation_state_pipe = ANIMATION_STATE_PIPE.init(Pipe::new());
+    let (reader, writer) = animation_state_pipe.split();
     
     // Setup individual components
-    let display = setup_display(p.I2C0, p.PIN_0, p.PIN_1).await;
+    let display = setup_display(p.I2C0, 
+        p.PIN_0, 
+        p.PIN_1).await;
     
     let mut wifi_controller = setup_wifi(
         p.PIO0,
@@ -50,7 +67,15 @@ async fn main(spawner: Spawner) {
     info!("WiFi LED enabled");
     info!("System initialization complete!");
 
-    spawner.spawn(display_task(display)).unwrap();
+    // Setup Buttons
+    let mut buttons = setup_buttons(p.PIN_6, 
+        p.PIN_7, 
+        p.PIN_8, 
+        p.PIN_9).await;
+
+    // Create tasks
+    spawner.spawn(display_task(display, reader)).unwrap();
+    spawner.spawn(button_task(buttons, writer)).unwrap();
     
     // Main animation loop
     loop {

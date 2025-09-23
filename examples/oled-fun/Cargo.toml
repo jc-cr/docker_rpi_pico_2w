@@ -35,6 +35,7 @@ embedded-graphics = "0.8.1"
 tinybmp = "0.5"
 heapless = "0.8"
 
+
 [profile.dev]
 debug = 2
 opt-level = "s"
