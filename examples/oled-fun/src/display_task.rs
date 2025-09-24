@@ -73,24 +73,39 @@ async fn display_frame(
     }
 }
 
+fn try_update_animation_num(
+    current_animation_num: u8,
+    pipe_reader: &Reader<'static, CriticalSectionRawMutex, 1>,
+) -> u8 {
+    let mut buffer = [0u8; 1];
+    match pipe_reader.try_read(&mut buffer) {
+        Ok(bytes_read) if bytes_read > 0 => {
+            let new_animation_num = buffer[0];
+            if new_animation_num >= 1 && new_animation_num <= 4 {
+                info!("Animation changed to: {}", new_animation_num);
+                new_animation_num
+            } else {
+                error!("Invalid animation number: {}", new_animation_num);
+                current_animation_num
+            }
+        },
+        _ => current_animation_num, // No data or error, keep current
+    }
+}
 
 #[embassy_executor::task]
 pub async fn display_task(
     mut display: Display,
-    pipe_reader: Reader<'static, CriticalSectionRawMutex, 1>,
+    mut pipe_reader: Reader<'static, CriticalSectionRawMutex, 1>,
 ) {
-
-
     info!("Starting animation with {} frames", frame_count());
     let mut frame_index = 0usize;
-
-    let mut current_animation_num:u8 =  1;
-
+    let mut current_animation_num: u8 = 1;
+    
     loop {
         // Check for animation changes (non-blocking)
+        current_animation_num = try_update_animation_num(current_animation_num, &mut pipe_reader);
         
-        // current_animation_num = read_pipe();
-
         // Display current frame
         display_frame(&mut display, current_animation_num, frame_index).await;
         
