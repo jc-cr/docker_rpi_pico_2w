@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile.rust
     volumes:
       - ..:/app
+      - /home/jc/.secrets/pico2w-proj.env:/home/wifi.env:ro
       - /dev/bus/usb:/dev/bus/usb  # For USB device access
     user: "${UID:-1000}:${GID:-1000}"
     privileged: true  # Required for USB device access
@@ -27,11 +28,11 @@ services:
     tty: true
     command: /bin/bash
   build:
-     working_dir: /app/examples/oled-fun
+     working_dir: /app/examples/oled-wifi-control
      extends: pico-dev
      command: cargo build --target-dir . --target thumbv8m.main-none-eabihf
   # Plug in board in boot mode
   flash:
-     working_dir: /app/examples/oled-fun
+     working_dir: /app/examples/oled-wifi-control
      extends: pico-dev
      command: cargo run --release --target-dir . --target thumbv8m.main-none-eabihf
