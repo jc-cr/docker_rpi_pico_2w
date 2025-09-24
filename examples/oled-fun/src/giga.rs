@@ -1,0 +1,251 @@
+// Auto-generated animation: giga
+// Generated from: include/giga
+// Frame count: 198
+
+const FRAME_0: &[u8] = include_bytes!("../include/giga/frame-0.bmp");
+const FRAME_1: &[u8] = include_bytes!("../include/giga/frame-1.bmp");
+const FRAME_2: &[u8] = include_bytes!("../include/giga/frame-2.bmp");
+const FRAME_3: &[u8] = include_bytes!("../include/giga/frame-3.bmp");
+const FRAME_4: &[u8] = include_bytes!("../include/giga/frame-4.bmp");
+const FRAME_5: &[u8] = include_bytes!("../include/giga/frame-5.bmp");
+const FRAME_6: &[u8] = include_bytes!("../include/giga/frame-6.bmp");
+const FRAME_7: &[u8] = include_bytes!("../include/giga/frame-7.bmp");
+const FRAME_8: &[u8] = include_bytes!("../include/giga/frame-8.bmp");
+const FRAME_9: &[u8] = include_bytes!("../include/giga/frame-9.bmp");
+const FRAME_10: &[u8] = include_bytes!("../include/giga/frame-10.bmp");
+const FRAME_11: &[u8] = include_bytes!("../include/giga/frame-11.bmp");
+const FRAME_12: &[u8] = include_bytes!("../include/giga/frame-12.bmp");
+const FRAME_13: &[u8] = include_bytes!("../include/giga/frame-13.bmp");
+const FRAME_14: &[u8] = include_bytes!("../include/giga/frame-14.bmp");
+const FRAME_15: &[u8] = include_bytes!("../include/giga/frame-15.bmp");
+const FRAME_16: &[u8] = include_bytes!("../include/giga/frame-16.bmp");
+const FRAME_17: &[u8] = include_bytes!("../include/giga/frame-17.bmp");
+const FRAME_18: &[u8] = include_bytes!("../include/giga/frame-18.bmp");
+const FRAME_19: &[u8] = include_bytes!("../include/giga/frame-19.bmp");
+const FRAME_20: &[u8] = include_bytes!("../include/giga/frame-20.bmp");
+const FRAME_21: &[u8] = include_bytes!("../include/giga/frame-21.bmp");
+const FRAME_22: &[u8] = include_bytes!("../include/giga/frame-22.bmp");
+const FRAME_23: &[u8] = include_bytes!("../include/giga/frame-23.bmp");
+const FRAME_24: &[u8] = include_bytes!("../include/giga/frame-24.bmp");
+const FRAME_25: &[u8] = include_bytes!("../include/giga/frame-25.bmp");
+const FRAME_26: &[u8] = include_bytes!("../include/giga/frame-26.bmp");
+const FRAME_27: &[u8] = include_bytes!("../include/giga/frame-27.bmp");
+const FRAME_28: &[u8] = include_bytes!("../include/giga/frame-28.bmp");
+const FRAME_29: &[u8] = include_bytes!("../include/giga/frame-29.bmp");
+const FRAME_30: &[u8] = include_bytes!("../include/giga/frame-30.bmp");
+const FRAME_31: &[u8] = include_bytes!("../include/giga/frame-31.bmp");
+const FRAME_32: &[u8] = include_bytes!("../include/giga/frame-32.bmp");
+const FRAME_33: &[u8] = include_bytes!("../include/giga/frame-33.bmp");
+const FRAME_34: &[u8] = include_bytes!("../include/giga/frame-34.bmp");
+const FRAME_35: &[u8] = include_bytes!("../include/giga/frame-35.bmp");
+const FRAME_36: &[u8] = include_bytes!("../include/giga/frame-36.bmp");
+const FRAME_37: &[u8] = include_bytes!("../include/giga/frame-37.bmp");
+const FRAME_38: &[u8] = include_bytes!("../include/giga/frame-38.bmp");
+const FRAME_39: &[u8] = include_bytes!("../include/giga/frame-39.bmp");
+const FRAME_40: &[u8] = include_bytes!("../include/giga/frame-40.bmp");
+const FRAME_41: &[u8] = include_bytes!("../include/giga/frame-41.bmp");
+const FRAME_42: &[u8] = include_bytes!("../include/giga/frame-42.bmp");
+const FRAME_43: &[u8] = include_bytes!("../include/giga/frame-43.bmp");
+const FRAME_44: &[u8] = include_bytes!("../include/giga/frame-44.bmp");
+const FRAME_45: &[u8] = include_bytes!("../include/giga/frame-45.bmp");
+const FRAME_46: &[u8] = include_bytes!("../include/giga/frame-46.bmp");
+const FRAME_47: &[u8] = include_bytes!("../include/giga/frame-47.bmp");
+const FRAME_48: &[u8] = include_bytes!("../include/giga/frame-48.bmp");
+const FRAME_49: &[u8] = include_bytes!("../include/giga/frame-49.bmp");
+const FRAME_50: &[u8] = include_bytes!("../include/giga/frame-50.bmp");
+const FRAME_51: &[u8] = include_bytes!("../include/giga/frame-51.bmp");
+const FRAME_52: &[u8] = include_bytes!("../include/giga/frame-52.bmp");
+const FRAME_53: &[u8] = include_bytes!("../include/giga/frame-53.bmp");
+const FRAME_54: &[u8] = include_bytes!("../include/giga/frame-54.bmp");
+const FRAME_55: &[u8] = include_bytes!("../include/giga/frame-55.bmp");
+const FRAME_56: &[u8] = include_bytes!("../include/giga/frame-56.bmp");
+const FRAME_57: &[u8] = include_bytes!("../include/giga/frame-57.bmp");
+const FRAME_58: &[u8] = include_bytes!("../include/giga/frame-58.bmp");
+const FRAME_59: &[u8] = include_bytes!("../include/giga/frame-59.bmp");
+const FRAME_60: &[u8] = include_bytes!("../include/giga/frame-60.bmp");
+const FRAME_61: &[u8] = include_bytes!("../include/giga/frame-61.bmp");
+const FRAME_62: &[u8] = include_bytes!("../include/giga/frame-62.bmp");
+const FRAME_63: &[u8] = include_bytes!("../include/giga/frame-63.bmp");
+const FRAME_64: &[u8] = include_bytes!("../include/giga/frame-64.bmp");
+const FRAME_65: &[u8] = include_bytes!("../include/giga/frame-65.bmp");
+const FRAME_66: &[u8] = include_bytes!("../include/giga/frame-66.bmp");
+const FRAME_67: &[u8] = include_bytes!("../include/giga/frame-67.bmp");
+const FRAME_68: &[u8] = include_bytes!("../include/giga/frame-68.bmp");
+const FRAME_69: &[u8] = include_bytes!("../include/giga/frame-69.bmp");
+const FRAME_70: &[u8] = include_bytes!("../include/giga/frame-70.bmp");
+const FRAME_71: &[u8] = include_bytes!("../include/giga/frame-71.bmp");
+const FRAME_72: &[u8] = include_bytes!("../include/giga/frame-72.bmp");
+const FRAME_73: &[u8] = include_bytes!("../include/giga/frame-73.bmp");
+const FRAME_74: &[u8] = include_bytes!("../include/giga/frame-74.bmp");
+const FRAME_75: &[u8] = include_bytes!("../include/giga/frame-75.bmp");
+const FRAME_76: &[u8] = include_bytes!("../include/giga/frame-76.bmp");
+const FRAME_77: &[u8] = include_bytes!("../include/giga/frame-77.bmp");
+const FRAME_78: &[u8] = include_bytes!("../include/giga/frame-78.bmp");
+const FRAME_79: &[u8] = include_bytes!("../include/giga/frame-79.bmp");
+const FRAME_80: &[u8] = include_bytes!("../include/giga/frame-80.bmp");
+const FRAME_81: &[u8] = include_bytes!("../include/giga/frame-81.bmp");
+const FRAME_82: &[u8] = include_bytes!("../include/giga/frame-82.bmp");
+const FRAME_83: &[u8] = include_bytes!("../include/giga/frame-83.bmp");
+const FRAME_84: &[u8] = include_bytes!("../include/giga/frame-84.bmp");
+const FRAME_85: &[u8] = include_bytes!("../include/giga/frame-85.bmp");
+const FRAME_86: &[u8] = include_bytes!("../include/giga/frame-86.bmp");
+const FRAME_87: &[u8] = include_bytes!("../include/giga/frame-87.bmp");
+const FRAME_88: &[u8] = include_bytes!("../include/giga/frame-88.bmp");
+const FRAME_89: &[u8] = include_bytes!("../include/giga/frame-89.bmp");
+const FRAME_90: &[u8] = include_bytes!("../include/giga/frame-90.bmp");
+const FRAME_91: &[u8] = include_bytes!("../include/giga/frame-91.bmp");
+const FRAME_92: &[u8] = include_bytes!("../include/giga/frame-92.bmp");
+const FRAME_93: &[u8] = include_bytes!("../include/giga/frame-93.bmp");
+const FRAME_94: &[u8] = include_bytes!("../include/giga/frame-94.bmp");
+const FRAME_95: &[u8] = include_bytes!("../include/giga/frame-95.bmp");
+const FRAME_96: &[u8] = include_bytes!("../include/giga/frame-96.bmp");
+const FRAME_97: &[u8] = include_bytes!("../include/giga/frame-97.bmp");
+const FRAME_98: &[u8] = include_bytes!("../include/giga/frame-98.bmp");
+const FRAME_99: &[u8] = include_bytes!("../include/giga/frame-99.bmp");
+const FRAME_100: &[u8] = include_bytes!("../include/giga/frame-100.bmp");
+const FRAME_101: &[u8] = include_bytes!("../include/giga/frame-101.bmp");
+const FRAME_102: &[u8] = include_bytes!("../include/giga/frame-102.bmp");
+const FRAME_103: &[u8] = include_bytes!("../include/giga/frame-103.bmp");
+const FRAME_104: &[u8] = include_bytes!("../include/giga/frame-104.bmp");
+const FRAME_105: &[u8] = include_bytes!("../include/giga/frame-105.bmp");
+const FRAME_106: &[u8] = include_bytes!("../include/giga/frame-106.bmp");
+const FRAME_107: &[u8] = include_bytes!("../include/giga/frame-107.bmp");
+const FRAME_108: &[u8] = include_bytes!("../include/giga/frame-108.bmp");
+const FRAME_109: &[u8] = include_bytes!("../include/giga/frame-109.bmp");
+const FRAME_110: &[u8] = include_bytes!("../include/giga/frame-110.bmp");
+const FRAME_111: &[u8] = include_bytes!("../include/giga/frame-111.bmp");
+const FRAME_112: &[u8] = include_bytes!("../include/giga/frame-112.bmp");
+const FRAME_113: &[u8] = include_bytes!("../include/giga/frame-113.bmp");
+const FRAME_114: &[u8] = include_bytes!("../include/giga/frame-114.bmp");
+const FRAME_115: &[u8] = include_bytes!("../include/giga/frame-115.bmp");
+const FRAME_116: &[u8] = include_bytes!("../include/giga/frame-116.bmp");
+const FRAME_117: &[u8] = include_bytes!("../include/giga/frame-117.bmp");
+const FRAME_118: &[u8] = include_bytes!("../include/giga/frame-118.bmp");
+const FRAME_119: &[u8] = include_bytes!("../include/giga/frame-119.bmp");
+const FRAME_120: &[u8] = include_bytes!("../include/giga/frame-120.bmp");
+const FRAME_121: &[u8] = include_bytes!("../include/giga/frame-121.bmp");
+const FRAME_122: &[u8] = include_bytes!("../include/giga/frame-122.bmp");
+const FRAME_123: &[u8] = include_bytes!("../include/giga/frame-123.bmp");
+const FRAME_124: &[u8] = include_bytes!("../include/giga/frame-124.bmp");
+const FRAME_125: &[u8] = include_bytes!("../include/giga/frame-125.bmp");
+const FRAME_126: &[u8] = include_bytes!("../include/giga/frame-126.bmp");
+const FRAME_127: &[u8] = include_bytes!("../include/giga/frame-127.bmp");
+const FRAME_128: &[u8] = include_bytes!("../include/giga/frame-128.bmp");
+const FRAME_129: &[u8] = include_bytes!("../include/giga/frame-129.bmp");
+const FRAME_130: &[u8] = include_bytes!("../include/giga/frame-130.bmp");
+const FRAME_131: &[u8] = include_bytes!("../include/giga/frame-131.bmp");
+const FRAME_132: &[u8] = include_bytes!("../include/giga/frame-132.bmp");
+const FRAME_133: &[u8] = include_bytes!("../include/giga/frame-133.bmp");
+const FRAME_134: &[u8] = include_bytes!("../include/giga/frame-134.bmp");
+const FRAME_135: &[u8] = include_bytes!("../include/giga/frame-135.bmp");
+const FRAME_136: &[u8] = include_bytes!("../include/giga/frame-136.bmp");
+const FRAME_137: &[u8] = include_bytes!("../include/giga/frame-137.bmp");
+const FRAME_138: &[u8] = include_bytes!("../include/giga/frame-138.bmp");
+const FRAME_139: &[u8] = include_bytes!("../include/giga/frame-139.bmp");
+const FRAME_140: &[u8] = include_bytes!("../include/giga/frame-140.bmp");
+const FRAME_141: &[u8] = include_bytes!("../include/giga/frame-141.bmp");
+const FRAME_142: &[u8] = include_bytes!("../include/giga/frame-142.bmp");
+const FRAME_143: &[u8] = include_bytes!("../include/giga/frame-143.bmp");
+const FRAME_144: &[u8] = include_bytes!("../include/giga/frame-144.bmp");
+const FRAME_145: &[u8] = include_bytes!("../include/giga/frame-145.bmp");
+const FRAME_146: &[u8] = include_bytes!("../include/giga/frame-146.bmp");
+const FRAME_147: &[u8] = include_bytes!("../include/giga/frame-147.bmp");
+const FRAME_148: &[u8] = include_bytes!("../include/giga/frame-148.bmp");
+const FRAME_149: &[u8] = include_bytes!("../include/giga/frame-149.bmp");
+const FRAME_150: &[u8] = include_bytes!("../include/giga/frame-150.bmp");
+const FRAME_151: &[u8] = include_bytes!("../include/giga/frame-151.bmp");
+const FRAME_152: &[u8] = include_bytes!("../include/giga/frame-152.bmp");
+const FRAME_153: &[u8] = include_bytes!("../include/giga/frame-153.bmp");
+const FRAME_154: &[u8] = include_bytes!("../include/giga/frame-154.bmp");
+const FRAME_155: &[u8] = include_bytes!("../include/giga/frame-155.bmp");
+const FRAME_156: &[u8] = include_bytes!("../include/giga/frame-156.bmp");
+const FRAME_157: &[u8] = include_bytes!("../include/giga/frame-157.bmp");
+const FRAME_158: &[u8] = include_bytes!("../include/giga/frame-158.bmp");
+const FRAME_159: &[u8] = include_bytes!("../include/giga/frame-159.bmp");
+const FRAME_160: &[u8] = include_bytes!("../include/giga/frame-160.bmp");
+const FRAME_161: &[u8] = include_bytes!("../include/giga/frame-161.bmp");
+const FRAME_162: &[u8] = include_bytes!("../include/giga/frame-162.bmp");
+const FRAME_163: &[u8] = include_bytes!("../include/giga/frame-163.bmp");
+const FRAME_164: &[u8] = include_bytes!("../include/giga/frame-164.bmp");
+const FRAME_165: &[u8] = include_bytes!("../include/giga/frame-165.bmp");
+const FRAME_166: &[u8] = include_bytes!("../include/giga/frame-166.bmp");
+const FRAME_167: &[u8] = include_bytes!("../include/giga/frame-167.bmp");
+const FRAME_168: &[u8] = include_bytes!("../include/giga/frame-168.bmp");
+const FRAME_169: &[u8] = include_bytes!("../include/giga/frame-169.bmp");
+const FRAME_170: &[u8] = include_bytes!("../include/giga/frame-170.bmp");
+const FRAME_171: &[u8] = include_bytes!("../include/giga/frame-171.bmp");
+const FRAME_172: &[u8] = include_bytes!("../include/giga/frame-172.bmp");
+const FRAME_173: &[u8] = include_bytes!("../include/giga/frame-173.bmp");
+const FRAME_174: &[u8] = include_bytes!("../include/giga/frame-174.bmp");
+const FRAME_175: &[u8] = include_bytes!("../include/giga/frame-175.bmp");
+const FRAME_176: &[u8] = include_bytes!("../include/giga/frame-176.bmp");
+const FRAME_177: &[u8] = include_bytes!("../include/giga/frame-177.bmp");
+const FRAME_178: &[u8] = include_bytes!("../include/giga/frame-178.bmp");
+const FRAME_179: &[u8] = include_bytes!("../include/giga/frame-179.bmp");
+const FRAME_180: &[u8] = include_bytes!("../include/giga/frame-180.bmp");
+const FRAME_181: &[u8] = include_bytes!("../include/giga/frame-181.bmp");
+const FRAME_182: &[u8] = include_bytes!("../include/giga/frame-182.bmp");
+const FRAME_183: &[u8] = include_bytes!("../include/giga/frame-183.bmp");
+const FRAME_184: &[u8] = include_bytes!("../include/giga/frame-184.bmp");
+const FRAME_185: &[u8] = include_bytes!("../include/giga/frame-185.bmp");
+const FRAME_186: &[u8] = include_bytes!("../include/giga/frame-186.bmp");
+const FRAME_187: &[u8] = include_bytes!("../include/giga/frame-187.bmp");
+const FRAME_188: &[u8] = include_bytes!("../include/giga/frame-188.bmp");
+const FRAME_189: &[u8] = include_bytes!("../include/giga/frame-189.bmp");
+const FRAME_190: &[u8] = include_bytes!("../include/giga/frame-190.bmp");
+const FRAME_191: &[u8] = include_bytes!("../include/giga/frame-191.bmp");
+const FRAME_192: &[u8] = include_bytes!("../include/giga/frame-192.bmp");
+const FRAME_193: &[u8] = include_bytes!("../include/giga/frame-193.bmp");
+const FRAME_194: &[u8] = include_bytes!("../include/giga/frame-194.bmp");
+const FRAME_195: &[u8] = include_bytes!("../include/giga/frame-195.bmp");
+const FRAME_196: &[u8] = include_bytes!("../include/giga/frame-196.bmp");
+const FRAME_197: &[u8] = include_bytes!("../include/giga/frame-197.bmp");
+
+// Public array of all frames - count is automatically derived
+pub const FRAMES: &[&[u8]] = &[
+    FRAME_0, FRAME_1, FRAME_2, FRAME_3, FRAME_4,
+    FRAME_5, FRAME_6, FRAME_7, FRAME_8, FRAME_9,
+    FRAME_10, FRAME_11, FRAME_12, FRAME_13, FRAME_14,
+    FRAME_15, FRAME_16, FRAME_17, FRAME_18, FRAME_19,
+    FRAME_20, FRAME_21, FRAME_22, FRAME_23, FRAME_24,
+    FRAME_25, FRAME_26, FRAME_27, FRAME_28, FRAME_29,
+    FRAME_30, FRAME_31, FRAME_32, FRAME_33, FRAME_34,
+    FRAME_35, FRAME_36, FRAME_37, FRAME_38, FRAME_39,
+    FRAME_40, FRAME_41, FRAME_42, FRAME_43, FRAME_44,
+    FRAME_45, FRAME_46, FRAME_47, FRAME_48, FRAME_49,
+    FRAME_50, FRAME_51, FRAME_52, FRAME_53, FRAME_54,
+    FRAME_55, FRAME_56, FRAME_57, FRAME_58, FRAME_59,
+    FRAME_60, FRAME_61, FRAME_62, FRAME_63, FRAME_64,
+    FRAME_65, FRAME_66, FRAME_67, FRAME_68, FRAME_69,
+    FRAME_70, FRAME_71, FRAME_72, FRAME_73, FRAME_74,
+    FRAME_75, FRAME_76, FRAME_77, FRAME_78, FRAME_79,
+    FRAME_80, FRAME_81, FRAME_82, FRAME_83, FRAME_84,
+    FRAME_85, FRAME_86, FRAME_87, FRAME_88, FRAME_89,
+    FRAME_90, FRAME_91, FRAME_92, FRAME_93, FRAME_94,
+    FRAME_95, FRAME_96, FRAME_97, FRAME_98, FRAME_99,
+    FRAME_100, FRAME_101, FRAME_102, FRAME_103, FRAME_104,
+    FRAME_105, FRAME_106, FRAME_107, FRAME_108, FRAME_109,
+    FRAME_110, FRAME_111, FRAME_112, FRAME_113, FRAME_114,
+    FRAME_115, FRAME_116, FRAME_117, FRAME_118, FRAME_119,
+    FRAME_120, FRAME_121, FRAME_122, FRAME_123, FRAME_124,
+    FRAME_125, FRAME_126, FRAME_127, FRAME_128, FRAME_129,
+    FRAME_130, FRAME_131, FRAME_132, FRAME_133, FRAME_134,
+    FRAME_135, FRAME_136, FRAME_137, FRAME_138, FRAME_139,
+    FRAME_140, FRAME_141, FRAME_142, FRAME_143, FRAME_144,
+    FRAME_145, FRAME_146, FRAME_147, FRAME_148, FRAME_149,
+    FRAME_150, FRAME_151, FRAME_152, FRAME_153, FRAME_154,
+    FRAME_155, FRAME_156, FRAME_157, FRAME_158, FRAME_159,
+    FRAME_160, FRAME_161, FRAME_162, FRAME_163, FRAME_164,
+    FRAME_165, FRAME_166, FRAME_167, FRAME_168, FRAME_169,
+    FRAME_170, FRAME_171, FRAME_172, FRAME_173, FRAME_174,
+    FRAME_175, FRAME_176, FRAME_177, FRAME_178, FRAME_179,
+    FRAME_180, FRAME_181, FRAME_182, FRAME_183, FRAME_184,
+    FRAME_185, FRAME_186, FRAME_187, FRAME_188, FRAME_189,
+    FRAME_190, FRAME_191, FRAME_192, FRAME_193, FRAME_194,
+    FRAME_195, FRAME_196, FRAME_197
+];
+
+// Helper function to get frame count
+pub const fn frame_count() -> usize {
+    FRAMES.len()
+}

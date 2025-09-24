@@ -18,11 +18,16 @@ mod setup_devices;
 use setup_devices::{setup_display, setup_wifi, setup_buttons};
 
 // Import task mods
-mod nooo;
 mod display_task;
 use display_task::{display_task};
 mod button_task;
 use button_task::{button_task};
+
+// Import animations
+mod nooo;
+mod giga;
+mod no_shake;
+mod reaction;
 
 
 // Program metadata for `picotool info`.

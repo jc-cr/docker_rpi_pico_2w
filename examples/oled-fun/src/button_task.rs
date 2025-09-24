@@ -5,7 +5,6 @@ use defmt::info;
 use embassy_time::{Duration, Timer};
 use embassy_sync::pipe::{Writer};
 use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
-use embassy_rp::gpio::{Input};
 use embassy_futures::select::{select4, Either4};
 
 use crate::setup_devices::Buttons;
