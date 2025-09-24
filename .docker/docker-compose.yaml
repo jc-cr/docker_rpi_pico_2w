@@ -30,7 +30,7 @@ services:
   build:
      working_dir: /app/examples/oled-wifi-control
      extends: pico-dev
-     command: cargo build --target-dir . --target thumbv8m.main-none-eabihf
+     command: bash -c "set -a && source /home/wifi.env && set +a && cargo build --target-dir . --target thumbv8m.main-none-eabihf"
   # Plug in board in boot mode
   flash:
      working_dir: /app/examples/oled-wifi-control

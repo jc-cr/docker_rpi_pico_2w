@@ -3,9 +3,9 @@
 use cyw43_pio::{PioSpi, RM2_CLOCK_DIVIDER};
 use defmt::*;
 use embassy_executor::Spawner;
+use embassy_net::{Config as WifiConfig, Stack, StackResources};
 use embassy_rp::bind_interrupts;
 use embassy_rp::gpio::{Level, Output, Input, Pull};
-use embassy_rp::i2c::{self, Config};
 use embassy_rp::peripherals::{DMA_CH0, 
     PIO0, 
     PIN_6,
@@ -19,8 +19,10 @@ use embassy_rp::peripherals::{DMA_CH0,
     I2C0};
 use embassy_rp::pio::{InterruptHandler, Pio};
 use embassy_rp::{Peri};
+use embassy_rp::clocks::RoscRng;
 use embassy_time::Timer;
 use static_cell::StaticCell;
+use embassy_rp::i2c::{self, Config};
 
 // OLED and graphics imports
 use ssd1306::{prelude::*, I2CDisplayInterface, Ssd1306};
@@ -38,6 +40,16 @@ async fn cyw43_task(runner: cyw43::Runner<'static, Output<'static>, PioSpi<'stat
     runner.run().await
 }
 
+#[embassy_executor::task]
+async fn net_task(mut runner: embassy_net::Runner<'static, cyw43::NetDriver<'static>>) -> ! {
+    runner.run().await
+}
+
+pub struct WifiStack {
+    pub wifi_controller: cyw43::Control<'static>,
+    pub stack: &'static Stack<'static>,
+}
+
 pub async fn setup_wifi(
     pio0: Peri<'static, PIO0>,
     pin_23: Peri<'static, PIN_23>,
@@ -46,7 +58,9 @@ pub async fn setup_wifi(
     pin_29: Peri<'static, PIN_29>,
     dma_ch0: Peri<'static, DMA_CH0>,
     spawner: &Spawner
-) -> cyw43::Control<'static> {
+) -> WifiStack {
+    let mut rng = RoscRng;
+    
     let fw = include_bytes!("../cyw43-firmware/43439A0.bin");
     let clm = include_bytes!("../cyw43-firmware/43439A0_clm.bin");
     
@@ -66,13 +80,36 @@ pub async fn setup_wifi(
     
     static STATE: StaticCell<cyw43::State> = StaticCell::new();
     let state = STATE.init(cyw43::State::new());
-    let (_net_device, mut wifi_controller, runner) = cyw43::new(state, pwr, spi, fw).await;
+    let (net_device, mut wifi_controller, runner) = cyw43::new(state, pwr, spi, fw).await;
     unwrap!(spawner.spawn(cyw43_task(runner)));
+    
     wifi_controller.init(clm).await;
     wifi_controller.gpio_set(0, false).await;
     info!("WiFi initialized!");
     
-    wifi_controller
+    // Set up network stack
+    let config = WifiConfig::dhcpv4(Default::default());
+    let seed = rng.next_u64();
+    
+    static RESOURCES: StaticCell<StackResources<5>> = StaticCell::new();
+    static STACK: StaticCell<Stack<'static>> = StaticCell::new();
+    
+    let (stack, runner) = embassy_net::new(
+        net_device,
+        config,
+        RESOURCES.init(StackResources::new()),
+        seed,
+    );
+    
+    let stack = STACK.init(stack);
+    unwrap!(spawner.spawn(net_task(runner)));
+    
+    info!("Network stack initialized!");
+    
+    WifiStack {
+        wifi_controller,
+        stack,
+    }
 }
 
 // Display stuff

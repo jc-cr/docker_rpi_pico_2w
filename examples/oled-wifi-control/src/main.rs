@@ -15,7 +15,7 @@ use {defmt_rtt as _, panic_probe as _};
 
 // Import setup mod
 mod setup_devices;
-use setup_devices::{setup_display, setup_wifi};
+use setup_devices::{setup_display, setup_wifi, WifiStack};
 
 // Import task mods
 mod display_task;
@@ -57,7 +57,7 @@ async fn main(spawner: Spawner) {
         p.PIN_0, 
         p.PIN_1).await;
     
-    let mut wifi_controller = setup_wifi(
+    let mut wifi_stack = setup_wifi(
         p.PIO0,
         p.PIN_23,
         p.PIN_25,
@@ -68,14 +68,14 @@ async fn main(spawner: Spawner) {
     ).await;
     
     // Turn on WiFi LED
-    wifi_controller.gpio_set(0, true).await;
+    wifi_stack.wifi_controller.gpio_set(0, true).await;
     info!("WiFi LED enabled");
     info!("System initialization complete!");
 
 
     // Create tasks
     //spawner.spawn(display_task(display, reader)).unwrap();
-    //spawner.spawn(networking_task(wifi_controller, writer)).unwrap();
+    //spawner.spawn(networking_task(wifi_stack, writer)).unwrap();
     
     // Main animation loop
     loop {
