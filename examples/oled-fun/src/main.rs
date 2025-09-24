@@ -84,7 +84,7 @@ async fn main(spawner: Spawner) {
     
     // Main animation loop
     loop {
-        // Animation speed - adjust as needed
+        // add some delay to main loop
         Timer::after_secs(1).await;
     }
 }
