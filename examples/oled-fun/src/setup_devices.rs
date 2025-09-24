@@ -115,10 +115,10 @@ pub async fn setup_display(
 // Button stuff
 
 pub struct Buttons{
-    button_1: Input<'static>,
-    button_2: Input<'static>,
-    button_3: Input<'static>,
-    button_4: Input<'static>,
+    pub button_1: Input<'static>,
+    pub button_2: Input<'static>,
+    pub button_3: Input<'static>,
+    pub button_4: Input<'static>,
 }
 
 pub async fn setup_buttons(
@@ -129,9 +129,9 @@ pub async fn setup_buttons(
 ) -> Buttons {
 
     Buttons {
-        button_1: Input::new(pin_6, Pull::None),
-        button_2: Input::new(pin_7, Pull::None),   
-        button_3: Input::new(pin_8, Pull::None),   
-        button_4: Input::new(pin_9, Pull::None),   
+     button_1: Input::new(pin_6, Pull::None),
+     button_2: Input::new(pin_7, Pull::None),   
+     button_3: Input::new(pin_8, Pull::None),   
+     button_4: Input::new(pin_9, Pull::None),   
     }
 }

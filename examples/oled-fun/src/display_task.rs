@@ -27,6 +27,7 @@ use embassy_time::Timer;
 // Helper function to display a specific frame of an animation
 async fn display_frame(
     display: &mut Display, 
+    current_animation_num: u8,
     frame_index: usize) {
     
     // Create text style
@@ -36,7 +37,14 @@ async fn display_frame(
     display.clear(BinaryColor::Off).unwrap();
     
     // Draw title in the top section
-    Text::new("Animation #: ", Point::new(0, 10), text_style)
+    let title_text = match current_animation_num {
+        1 => "Animation #: 1",
+        2 => "Animation #: 2", 
+        3 => "Animation #: 3",
+        4 => "Animation #: 4",
+        _ => "Animation #: ?",
+    };
+    Text::new(title_text, Point::new(0, 10), text_style)
         .draw(display)
         .unwrap();
     
@@ -69,18 +77,22 @@ async fn display_frame(
 #[embassy_executor::task]
 pub async fn display_task(
     mut display: Display,
-    mut pipe_reader: Reader<'static, CriticalSectionRawMutex, 1>,
+    pipe_reader: Reader<'static, CriticalSectionRawMutex, 1>,
 ) {
 
 
     info!("Starting animation with {} frames", frame_count());
     let mut frame_index = 0usize;
 
+    let mut current_animation_num:u8 =  1;
+
     loop {
         // Check for animation changes (non-blocking)
         
+        // current_animation_num = read_pipe();
+
         // Display current frame
-        display_frame(&mut display, frame_index).await;
+        display_frame(&mut display, current_animation_num, frame_index).await;
         
         // Advance to next frame
         frame_index = (frame_index + 1) % frame_count();

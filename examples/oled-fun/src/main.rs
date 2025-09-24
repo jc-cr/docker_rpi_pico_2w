@@ -6,7 +6,7 @@
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_time::Timer;
-use embassy_sync::pipe::{Pipe, Reader, Writer};
+use embassy_sync::pipe::{Pipe};
 use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
 use static_cell::StaticCell;
 
@@ -68,7 +68,7 @@ async fn main(spawner: Spawner) {
     info!("System initialization complete!");
 
     // Setup Buttons
-    let mut buttons = setup_buttons(p.PIN_6, 
+    let buttons = setup_buttons(p.PIN_6, 
         p.PIN_7, 
         p.PIN_8, 
         p.PIN_9).await;
