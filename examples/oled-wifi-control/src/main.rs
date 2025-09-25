@@ -15,7 +15,7 @@ use {defmt_rtt as _, panic_probe as _};
 
 // Import setup mod
 mod setup_devices;
-use setup_devices::{setup_display, setup_wifi, WifiStack};
+use setup_devices::{setup_display, setup_wifi};
 
 // Import task mods
 mod display_task;
@@ -57,7 +57,7 @@ async fn main(spawner: Spawner) {
         p.PIN_0, 
         p.PIN_1).await;
     
-    let mut wifi_stack = setup_wifi(
+    let wifi_stack = setup_wifi(
         p.PIO0,
         p.PIN_23,
         p.PIN_25,
@@ -71,7 +71,7 @@ async fn main(spawner: Spawner) {
 
 
     // Create tasks
-    //spawner.spawn(display_task(display, reader)).unwrap();
+    spawner.spawn(display_task(display, reader)).unwrap();
     spawner.spawn(networking_task(wifi_stack, writer)).unwrap();
     
     // Main animation loop

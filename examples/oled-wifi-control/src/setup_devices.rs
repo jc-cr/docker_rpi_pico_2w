@@ -6,13 +6,9 @@ use embassy_executor::Spawner;
 use embassy_net::{Config as WifiConfig, Stack, StackResources, Ipv4Address, Ipv4Cidr, StaticConfigV4};
 use heapless::Vec;
 use embassy_rp::bind_interrupts;
-use embassy_rp::gpio::{Level, Output, Input, Pull};
+use embassy_rp::gpio::{Level, Output};
 use embassy_rp::peripherals::{DMA_CH0, 
     PIO0, 
-    PIN_6,
-    PIN_7,
-    PIN_8,
-    PIN_9,
     PIN_23, 
     PIN_24, 
     PIN_25, 

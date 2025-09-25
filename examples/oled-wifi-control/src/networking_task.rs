@@ -19,7 +19,7 @@ const WIFI_PASSWORD: &str = env!("WIFI_PASS");
 #[embassy_executor::task]
 pub async fn networking_task(
     mut wifi_stack: WifiStack,
-    mut pipe_writer: Writer<'static, CriticalSectionRawMutex, 1>,
+    pipe_writer: Writer<'static, CriticalSectionRawMutex, 1>,
 ) {
     info!("Starting networking task...");
     
