@@ -3,7 +3,8 @@
 use cyw43_pio::{PioSpi, RM2_CLOCK_DIVIDER};
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_net::{Config as WifiConfig, Stack, StackResources};
+use embassy_net::{Config as WifiConfig, Stack, StackResources, Ipv4Address, Ipv4Cidr, StaticConfigV4};
+use heapless::Vec;
 use embassy_rp::bind_interrupts;
 use embassy_rp::gpio::{Level, Output, Input, Pull};
 use embassy_rp::peripherals::{DMA_CH0, 
@@ -88,7 +89,11 @@ pub async fn setup_wifi(
     info!("WiFi initialized!");
     
     // Set up network stack
-    let config = WifiConfig::dhcpv4(Default::default());
+    let config = WifiConfig::ipv4_static(StaticConfigV4 {
+        address: Ipv4Cidr::new(Ipv4Address::new(192, 168, 68, 100), 24),
+        dns_servers: Vec::new(),
+        gateway: Some(Ipv4Address::new(192, 168, 68, 1)),
+    });
     let seed = rng.next_u64();
     
     static RESOURCES: StaticCell<StackResources<5>> = StaticCell::new();

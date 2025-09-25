@@ -58,6 +58,14 @@ pub async fn networking_task(
 
                 // Send command through pipe
                 if let Some(cmd) = command {
+                    // Quick inline blink for visual feedback
+                    for _i in 0..cmd {
+                        wifi_stack.wifi_controller.gpio_set(0, false).await;
+                        Timer::after(Duration::from_millis(100)).await;
+                        wifi_stack.wifi_controller.gpio_set(0, true).await;
+                        Timer::after(Duration::from_millis(100)).await;
+                    }
+
                     match pipe_writer.try_write(&[cmd]) {
                         Ok(_) => info!("Command {} sent to display task", cmd),
                         Err(_) => warn!("Failed to send command (pipe full?)"),
@@ -73,6 +81,7 @@ pub async fn networking_task(
                     _ => b"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n<h1>Pico 2W Control</h1><p><a href='/1'>Anim 1</a> | <a href='/2'>Anim 2</a> | <a href='/3'>Anim 3</a> | <a href='/4'>Anim 4</a></p>",
                 };
 
+                // Use write instead of write_all
                 if let Err(e) = socket.write(response).await {
                     warn!("Write error: {:?}", e);
                 }
@@ -115,6 +124,10 @@ async fn connect_wifi(wifi_stack: &mut WifiStack) {
         info!("Gateway: {:?}", config.gateway);
         info!("HTTP Server ready at: http://{}", config.address.address());
     }
+
+
+    // Turn on LED if connected
+    wifi_stack.wifi_controller.gpio_set(0, true).await;
 }
 
 fn parse_command(request: &str) -> Option<u8> {

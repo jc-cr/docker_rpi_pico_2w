@@ -67,15 +67,12 @@ async fn main(spawner: Spawner) {
         &spawner
     ).await;
     
-    // Turn on WiFi LED
-    wifi_stack.wifi_controller.gpio_set(0, true).await;
-    info!("WiFi LED enabled");
     info!("System initialization complete!");
 
 
     // Create tasks
     //spawner.spawn(display_task(display, reader)).unwrap();
-    //spawner.spawn(networking_task(wifi_stack, writer)).unwrap();
+    spawner.spawn(networking_task(wifi_stack, writer)).unwrap();
     
     // Main animation loop
     loop {
