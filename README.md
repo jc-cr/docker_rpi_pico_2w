@@ -29,4 +29,4 @@ docker compose run --rm flash
 ## Resources
 - [Embassy Book](https://embassy.dev/book/)
 - [RP2350 Datasheet](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf)
-- [Pico 2W Datasheet]([https://datasheets.raspberrypi.com/pico/pico-2-w-datasheet.pdf](https://datasheets.raspberrypi.com/picow/pico-2-w-datasheet.pdf))
+- [Pico 2W Datasheet](https://datasheets.raspberrypi.com/picow/pico-2-w-datasheet.pdf)
